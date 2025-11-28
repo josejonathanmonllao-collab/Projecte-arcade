@@ -1,1 +1,4 @@
 Projecte arcade
+Aquest treball final anat sobre fer dos jocs, el primer del joc pedra, paper o tisora i l'altre d'endevinar el número entre l'1 i el 100. El primer joc de pedra, paper o tisora el jugador pot triar entre dos modes: “el primer a 3 victòries” o “al millor de 5 rondes”. 
+El mode 1 només executa una ronda en lloc de continuar fins a 3 victòries. Juguem contra un robot que fa jugades aleatòries mitjançant una classe externa Robot. Al final es mostra els punts de cadascun i qui ha guanyat.
+El segon joc és Endevinar el número, on l’ordinador pensa un número entre l’1 i el 100, i el jugador ha d’encertar-lo rebent pistes com “més alt” o “més baix”.

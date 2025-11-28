@@ -12,8 +12,8 @@ def janken():
         rondes_per_guanyar = 3
         rondes_maximes = None
     elif mode == "2":
-        rondes_per_guanyar = 5
-        rondes_maximes = None
+        rondes_per_guanyar = None
+        rondes_maximes = 5
     else:
         print("No és vàlid, elegeix un mode correcte")
         return
@@ -25,27 +25,33 @@ def janken():
     while mode not in ["1", "2"]:
         print("No és vàlid, elegeix un mode correcte")
         mode = input("Tria el mode 1 o 2: ")
-    
-    while mode == "1":
-        jugador = input("Tria pedra, paper o tisora: ")
-        while jugador not in ["pedra", "paper", "tisora"]:
-            print("No és vàlid, elegeix pedra, paper o tisora")
+    if mode == "1":
+        while True:
             jugador = input("Tria pedra, paper o tisora: ")
-        r = rb.robot()
-        robot = r.playing()
-        if jugador == robot:
-            print("A quedat en empat.")
-        elif (jugador == "pedra" and robot == "tisora") or \
+            while jugador not in ["pedra", "paper", "tisora"]:
+                print("No és vàlid, elegeix pedra, paper o tisora")
+                jugador = input("Tria pedra, paper o tisora: ")
+            r = rb.robot()
+            robot = r.playing()
+            if jugador == robot:
+                print("A quedat en empat.")
+            elif (jugador == "pedra" and robot == "tisora") or \
              (jugador == "paper" and robot == "pedra") or \
              (jugador == "tisora" and robot == "paper"):
               punts_del_jugador += 1
               print ("Has guanyat la ronda!")
-        else:
-            punts_del_robot += 1
-            print("Ha guanyat el robot!")
-        mode = "0"
+            else:
+                punts_del_robot += 1
+                print("Ha guanyat el robot!")
+            if punts_del_jugador >= rondes_per_guanyar:
+               break
+            if punts_del_robot >= rondes_per_guanyar:
+               break
+    
     while mode == "2":
-        for rondes in range(1, 6):
+        for ronda in range(5):
+            rondes_per_guanyar = 3
+            rondes_maximes = 5
             jugador = input("Tria pedra, paper o tisora: ")
             while jugador not in ["pedra", "paper", "tisora"]:
                 print("No és vàlid, elegeix pedra, paper o tisora")
@@ -58,11 +64,12 @@ def janken():
                  (jugador == "paper" and robot == "pedra") or \
                  (jugador == "tisora" and robot == "paper"):
                   punts_del_jugador += 1
+                  rondes_del_joc += 1
                   print ("Has guanyat la ronda!")
             else:
                 punts_del_robot += 1
                 print("Ha guanyat el robot!")
-        mode = "0"
+                mode = "0"
     print("Punts del jugador:", punts_del_jugador)
     print("Punts del robot:", punts_del_robot)
     if punts_del_jugador > punts_del_robot:
