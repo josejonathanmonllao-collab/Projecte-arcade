@@ -1,7 +1,5 @@
-from Robot import Robot
-import time
+import Robot as rb
 import random
-
 
 def janken():
     print("Benvingut/da al joc de Pedra, paper o tisora! ")
@@ -10,6 +8,20 @@ def janken():
     print("2. Al millor de 5 rondes")
     mode = input("Tria el mode 1 o 2: ")
 
+    if mode == "1":   
+        rondes_per_guanyar = 3
+        rondes_maximes = None
+    elif mode == "2":
+        rondes_per_guanyar = 5
+        rondes_maximes = None
+    else:
+        print("No és vàlid, elegeix un mode correcte")
+        return
+    punts_del_jugador = 0
+    punts_del_robot = 0
+    rondes_del_joc = 0 
+    opcions = ["pedra", "paper", "tisora"]  
+    
     while mode not in ["1", "2"]:
         print("No és vàlid, elegeix un mode correcte")
         mode = input("Tria el mode 1 o 2: ")
@@ -19,14 +31,61 @@ def janken():
         while jugador not in ["pedra", "paper", "tisora"]:
             print("No és vàlid, elegeix pedra, paper o tisora")
             jugador = input("Tria pedra, paper o tisora: ")
-        robot = robot.playing()
+        r = rb.robot()
+        robot = r.playing()
         if jugador == robot:
             print("A quedat en empat.")
         elif (jugador == "pedra" and robot == "tisora") or \
              (jugador == "paper" and robot == "pedra") or \
              (jugador == "tisora" and robot == "paper"):
-              jugador += 1
+              punts_del_jugador += 1
               print ("Has guanyat la ronda!")
         else:
-            robot += 1
+            punts_del_robot += 1
             print("Ha guanyat el robot!")
+        mode = "0"
+    while mode == "2":
+        for rondes in range(1, 6):
+            jugador = input("Tria pedra, paper o tisora: ")
+            while jugador not in ["pedra", "paper", "tisora"]:
+                print("No és vàlid, elegeix pedra, paper o tisora")
+                jugador = input("Tria pedra, paper o tisora: ")
+            r = rb.robot()
+            robot = r.playing()
+            if jugador == robot:
+                print("A quedat en empat.")
+            elif (jugador == "pedra" and robot == "tisora") or \
+                 (jugador == "paper" and robot == "pedra") or \
+                 (jugador == "tisora" and robot == "paper"):
+                  punts_del_jugador += 1
+                  print ("Has guanyat la ronda!")
+            else:
+                punts_del_robot += 1
+                print("Ha guanyat el robot!")
+        mode = "0"
+    print("Punts del jugador:", punts_del_jugador)
+    print("Punts del robot:", punts_del_robot)
+    if punts_del_jugador > punts_del_robot:
+        print("Has guanyat la partida!")
+    elif punts_del_robot > punts_del_jugador:
+        print("Ha guanyat el robot la partida!")
+
+def nana():
+    print("Benvingut/da al joc d'Endevinar el número! ")
+    print("Endevina el número entre l'1 al 100: ")
+    input("Ficar un número entre l'1 i el 100: ")
+    numero = random.randint(1, 100)
+    
+    while numero not in range(1, 101):
+        if numero < 1 or numero > 100:
+            print("El número ha d'estar entre 1 i 100.")
+            continue
+    while True:
+        numero_jugador = int(input("Ficar un número entre l'1 i el 100: "))
+        if numero_jugador < numero:
+            print("El número és més alt.")
+        elif numero_jugador > numero:
+            print("El número és més baix.")
+        else:
+            print("Enhorabona! Has endevinat el número:", numero)
+            break
